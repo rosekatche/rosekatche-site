@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rose Katché</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #FFFFFF;
+    --surface: #F7F5F1;
+    --text-primary: #2A1D16;
+    --text-secondary: #7C6A5A;
+    --text-muted: #A99783;
+    --accent: #6B2338;
+    --accent-soft: #E4D2CE;
+    --on-accent: #F8F1E7;
+    --border: #E5DACB;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #1C140F;
+      --surface: #251C15;
+      --text-primary: #F4ECE1;
+      --text-secondary: #B9A692;
+      --text-muted: #83705E;
+      --accent: #C56478;
+      --accent-soft: #3D1F26;
+      --on-accent: #1C140F;
+      --border: #3A2C21;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #1C140F;
+    --surface: #251C15;
+    --text-primary: #F4ECE1;
+    --text-secondary: #B9A692;
+    --text-muted: #83705E;
+    --accent: #C56478;
+    --accent-soft: #3D1F26;
+    --on-accent: #1C140F;
+    --border: #3A2C21;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text-primary);
+    font-family: 'Inter', sans-serif;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 0 24px; }
+  .wrap > section:not(:last-child) { border-bottom: 1px solid var(--border); }
+
+  header.site-header {
+    position: sticky; top: 0; z-index: 10;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+  }
+  .header-inner {
+    max-width: 760px; margin: 0 auto; padding: 18px 24px;
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 12px;
+  }
+  .nameplate { text-decoration: none; color: var(--text-primary); }
+  .wordmark {
+    display: block; font-weight: 500; font-size: 15px;
+    letter-spacing: 0.06em; text-transform: uppercase;
+  }
+  .role-line {
+    display: block; font-size: 11px;
+    letter-spacing: 0.03em; color: var(--text-muted); margin-top: 3px;
+  }
+  .header-right { display: flex; align-items: center; gap: 24px; flex-wrap: wrap; }
+  nav { display: flex; gap: 22px; flex-wrap: wrap; }
+  nav a {
+    color: var(--text-secondary); text-decoration: none; font-size: 14px;
+    white-space: nowrap;
+    border-bottom: 1px solid transparent; padding-bottom: 2px;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  nav a:hover { color: var(--accent); border-color: var(--accent); }
+  .lang-toggle {
+    font-size: 12px; color: var(--text-secondary);
+    background: transparent; border: 1px solid var(--border); border-radius: 999px;
+    padding: 5px 12px; cursor: pointer; transition: color 0.2s, border-color 0.2s;
+  }
+  .lang-toggle:hover { color: var(--accent); border-color: var(--accent); }
+
+  section { padding: 88px 0; }
+  .section-label {
+    font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--accent); margin: 0 0 28px;
+  }
+  .subsection-label {
+    font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase;
+    color: var(--text-secondary); margin: 0 0 24px;
+  }
+  .subsection { margin-top: 56px; padding-top: 56px; border-top: 1px solid var(--border); }
+
+  .hero { display: flex; gap: 40px; align-items: center; flex-wrap: wrap; padding-top: 64px; }
+  .portrait-placeholder {
+    width: 380px; height: 500px; max-width: 100%; flex-shrink: 0;
+    background: var(--surface); border: 1px dashed var(--border);
+    border-radius: 4px;
+  }
+  .hero-text { flex: 1; min-width: 220px; }
+  .eyebrow { color: var(--text-secondary); font-size: 14px; margin: 0 0 10px; }
+  h1 {
+    font-weight: 600; letter-spacing: -0.01em; color: var(--accent);
+    font-size: 46px; line-height: 1.05; margin: 0;
+  }
+
+  h2 { font-weight: 600; font-size: 26px; margin: 0 0 14px; }
+
+  .about-content { display: flex; gap: 48px; align-items: flex-start; flex-wrap: wrap; margin-left: 24px; }
+  .about-col-left { flex: 1 1 320px; min-width: 280px; }
+  .about-col-right { flex: 1 1 320px; min-width: 280px; margin-top: -7px; }
+  .about-photo-placeholder {
+    width: 100%; max-width: 460px; aspect-ratio: 3/4;
+    background: var(--surface); border: 1px solid var(--border); border-radius: 4px;
+    margin-bottom: 22px;
+  }
+  #about p.body-text { color: var(--text-secondary); max-width: 42ch; margin: 0 0 16px; }
+  .about-full { margin-top: 28px; margin-left: 24px; }
+  #about .about-full p.body-text { max-width: none; width: 100%; }
+  #about p.body-text:last-child { margin-bottom: 0; }
+  #about em { font-style: italic; color: var(--text-primary); }
+  #about em.muted-em { color: var(--text-secondary); }
+
+  .still-band { width: 100vw; margin-left: calc(50% - 50vw); margin-right: calc(50% - 50vw); padding: 0 24px; margin-bottom: 32px; }
+  .still-inner { max-width: 1100px; margin: 0 auto; }
+  .still-placeholder-large {
+    width: 100%; aspect-ratio: 4/3;
+    background: var(--surface); border: 1px dashed var(--border);
+    border-radius: 4px;
+  }
+  .slide-text .tag {
+    display: inline-block; font-size: 12px; letter-spacing: 0.03em;
+    color: var(--accent); background: var(--accent-soft);
+    padding: 4px 10px; border-radius: 999px; margin-bottom: 14px;
+  }
+  .slide-text .work-note { font-size: 14px; font-weight: 400; color: var(--text-muted); }
+  .slide-text .festival-list { color: var(--text-muted); font-size: 12.5px; margin: 12px 0 22px; max-width: 60ch; }
+  .slide-text h3 { font-weight: 600; font-size: 20px; margin: 0 0 8px; }
+  .slide-text .role { color: var(--text-secondary); font-size: 14px; margin: 0 0 10px; }
+  .slide-text p { color: var(--text-secondary); max-width: 60ch; }
+  .vimeo-link {
+    display: inline-block; color: var(--text-primary); text-decoration: none;
+    font-size: 14px; border-bottom: 1px solid var(--border); padding-bottom: 2px; margin: 4px 0 6px;
+  }
+  .vimeo-link:hover { color: var(--accent); border-color: var(--accent); }
+  .protected-note { color: var(--text-muted); font-size: 12.5px; margin: 8px 0 0; }
+
+  .onset-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr); grid-auto-rows: 340px; gap: 14px;
+    width: 100vw; margin-left: calc(50% - 50vw); margin-right: calc(50% - 50vw);
+    padding: 0 24px; margin-bottom: 24px; box-sizing: border-box;
+  }
+  .onset-item { margin: 0; position: relative; overflow: hidden; border-radius: 4px; background: var(--surface); }
+  .onset-grid .photo-placeholder { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .onset-item figcaption {
+    position: absolute; left: 0; right: 0; bottom: 0; color: #F4ECE1; font-size: 11px;
+    line-height: 1.3; padding: 20px 10px 8px;
+    background: linear-gradient(to top, rgba(20,14,10,.75), transparent);
+  }
+  .onset-grid > .onset-item:nth-child(3) .photo-placeholder { object-position: center top; }
+  .onset-grid > .onset-item:nth-child(4) .photo-placeholder { object-position: center bottom; }
+  @media (max-width: 600px) {
+    .onset-grid { grid-auto-rows: 240px; }
+  }
+
+  .project-block + .project-block { margin-top: 56px; padding-top: 56px; border-top: 1px solid var(--border); }
+
+  .contact-section { text-align: center; }
+  .contact-section p { color: var(--text-secondary); max-width: 46ch; margin: 0 auto 28px; }
+  .contact-details { margin-bottom: 8px; }
+  .contact-section p.contact-line, a.contact-line {
+    display: block; color: var(--text-secondary); font-size: 13px;
+    margin: 0 auto 4px; text-decoration: none; max-width: none;
+  }
+  a.contact-line:hover { color: var(--accent); }
+  .email-link {
+    font-weight: 600; font-size: 22px; color: var(--text-primary);
+    text-decoration: none; border-bottom: 1px solid var(--accent); padding-bottom: 4px;
+  }
+  .email-link:hover { color: var(--accent); }
+  .socials { margin-top: 24px; display: flex; gap: 20px; justify-content: center; }
+  .socials a { color: var(--text-secondary); text-decoration: none; font-size: 14px; }
+  .socials a:hover { color: var(--accent); }
+
+  footer { padding: 40px 0; text-align: center; color: var(--text-muted); font-size: 13px; }
+
+  @media (max-width: 600px) {
+    h1 { font-size: 34px; }
+    section { padding: 56px 0; }
+    .hero { padding-top: 40px; }
+    .portrait-placeholder { width: 100%; height: auto; aspect-ratio: 3/4; }
+    
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="#home" class="nameplate">
+      <span class="wordmark">Rose Katché</span>
+      <span class="role-line" data-i18n="role">autrice - réalisatrice</span>
+    </a>
+    <div class="header-right">
+      <nav>
+        <a href="#work" data-i18n="nav_work">Projets</a>
+        <a href="#about" data-i18n="nav_about">À propos</a>
+        <a href="#contact" data-i18n="nav_contact">Contact</a>
+      </nav>
+      <button class="lang-toggle" id="langToggle" type="button" aria-label="Switch language">FR / EN</button>
+</header>
+
+<div class="wrap">
+
+  <section id="home" class="hero">
+    <div class="hero-text">
+      <p class="eyebrow" data-i18n="hero_eyebrow">Autrice - réalisatrice</p>
+      <h1>Rose Katché</h1>
+    </div>
+    <img src="images/hero.jpg" alt="" class="portrait-placeholder" style="object-fit:cover;display:block;">
+  </section>
+
+  <section id="work">
+    <p class="section-label" data-i18n="work_label">Projets — En cours</p>
+
+    <div class="still-band">
+      <div class="still-inner">
+        <img src="images/work-uninvited.jpg" alt="" style="width:100%;height:auto;display:block;border-radius:4px;">
+      </div>
+    </div>
+    <div class="slide-text">
+      <span class="tag" data-i18n="current_tag">En post-production</span>
+      <h3>Uninvited <span class="work-note" data-i18n="working_title">(titre de travail)</span></h3>
+      <p data-i18n="current_text">Long métrage documentaire produit par Orchidée Films.</p>
+    </div>
+
+    <div class="subsection">
+      <p class="section-label" data-i18n="stage2_label">Projets — Réalisés</p>
+
+      <div class="project-list">
+        <div class="project-block">
+          <div class="still-band">
+            <div class="still-inner">
+              <img src="images/work-la-mise-a-mort.jpg" alt="" style="width:100%;height:auto;display:block;border-radius:4px;">
+            </div>
+          </div>
+          <div class="slide-text">
+            <h3 data-i18n="project1_title">La mise à mort de mon père</h3>
+            <p class="role" data-i18n="project1_role">Scénariste, réalisatrice · 12 minutes, 2021</p>
+            <p class="festival-list" data-i18n="project1_festivals">Sélection de festivals : Marché du Film Court de Clermont-Ferrand - Talent Tout Court Téléfilm Canada, The Pan African Film Festival, Seattle Black Film Festival, New York Shorts International Film Festival, Paris Lift-Off Film Festival, Syracuse International Film Festival, Afrikart Festival (Montpellier), Victoria Film Festival, San Diego Black Film Festival, Festival International de cinéma Vues d'Afrique (Montréal).</p>
+            <a href="https://vimeo.com/rosekatche/deathofmyfather?share=copy&fl=sv&fe=ci" target="_blank" rel="noopener" class="vimeo-link" data-i18n="vimeo_link">Voir sur Vimeo</a>
+            <p class="protected-note" data-i18n="protected_note">Pour le mot de passe, écrivez à <a href='mailto:rosekatche@gmail.com' style='color:inherit;text-decoration:underline;'>rosekatche@gmail.com</a></p>
+          </div>
+        </div>
+
+        <div class="project-block">
+          <div class="still-band">
+            <div class="still-inner">
+              <img src="images/work-daryl-dixon.jpg" alt="" style="width:100%;height:auto;display:block;border-radius:4px;">
+            </div>
+          </div>
+          <div class="slide-text">
+            <h3>The Walking Dead: Daryl Dixon</h3>
+            <p class="role" data-i18n="project2_role">Réalisation de scènes de jeu non créditées, deuxième équipe · Saison 2, épisodes 5 &amp; 6 (2024)</p>
+            <a href="https://vimeo.com/1225987037?share=copy&fl=sv&fe=ci" target="_blank" rel="noopener" class="vimeo-link" data-i18n="vimeo_link">Voir sur Vimeo</a>
+            <p class="protected-note" data-i18n="protected_note">Pour le mot de passe, écrivez à <a href='mailto:rosekatche@gmail.com' style='color:inherit;text-decoration:underline;'>rosekatche@gmail.com</a></p>
+          </div>
+        </div>
+
+        <div class="project-block">
+          <div class="slide-text">
+            <h3 data-i18n="stage3_title">Sur les plateaux</h3>
+              </div>
+          <div class="onset-grid">
+            <figure class="onset-item"><img src="images/onset-la-mise-a-mort.jpg" alt="" class="photo-placeholder"><figcaption data-i18n="cap_ddofm">Sur le tournage de La mise à mort de mon père</figcaption></figure>
+            <figure class="onset-item"><img src="images/onset-the-sphere.jpg" alt="" class="photo-placeholder"><figcaption data-i18n="cap_sphere">Sur le tournage du proof of concept pour The Sphere</figcaption></figure>
+            <figure class="onset-item"><img src="images/onset-daryl-dixon.jpg" alt="" class="photo-placeholder"><figcaption data-i18n="cap_pilgrim">Sur le tournage de The Walking Dead: Daryl Dixon</figcaption></figure>
+            <figure class="onset-item"><img src="images/onset-abidjan.jpg" alt="" class="photo-placeholder"><figcaption data-i18n="cap_abidjan">Sur le tournage d'Uninvited à Abidjan</figcaption></figure>
+          
+          
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="about">
+    <p class="section-label" data-i18n="about_label">À propos</p>
+    <div class="about-content">
+      <div class="about-col-left">
+        <img src="images/about.jpg" alt="" class="about-photo-placeholder" style="object-fit:cover;display:block;">
+      </div>
+      <div class="about-col-right">
+        <p class="body-text" data-i18n="about_text_1"><strong>Rose Katché</strong> est une réalisatrice française basée entre Paris et Montréal. Son travail interroge les liens familiaux, la filiation, l'incommunicabilité, tout en affirmant le corps comme un langage autonome.</p>
+        <p class="body-text" data-i18n="about_text_2">Elle est en ce moment en post-production de son premier long métrage documentaire, <em>Uninvited</em>, qui explore les liens de filiation entre un père et sa fille et la transmission des origines. Financé par le programme Talents en vue de Téléfilm Canada, le film a été développé au Talent Lab du RIDM à Montréal (2020) et au Hot Docs Accelerator de Toronto (2022). Elle développe également <em>Ma bien-aimée</em>, un nouveau court métrage de fiction sur les arnaques sentimentales.</p>
+      </div>
+    </div>
+    <div class="about-full">
+      <p class="body-text" data-i18n="about_text_3">En 2021, elle réalise et autoproduit son premier court métrage, <em>La mise à mort de mon père</em>, présenté dans plusieurs festivals, notamment en Amérique du Nord. Elle réalise ensuite des scènes de jeu de deuxième équipe pour la saison 2 de la série <em>The Walking Dead: Daryl Dixon</em>, puis un court-métrage de type proof of concept pour <strong>The Sphere</strong>.</p>
+      <p class="body-text" data-i18n="about_text_4">Elle fait ses débuts dans le milieu du cinéma en tant que scripte, un métier qui lui offre une position d'observation privilégiée au cœur de la narration et de la mise en scène. Elle travaille aux côtés de nombreux réalisateurs sur des longs métrages dont <em>Valerian et la Cité des mille planètes</em>, des séries telles que <em>Lost in Space</em>, <em>A Million Little Things</em> et <em>Riverdale</em>, ainsi que des campagnes publicitaires pour <em class="muted-em">Dior, Nintendo Switch</em> et <em class="muted-em">Airbnb</em>.</p>
+    </div>
+  </section>
+
+  <section id="contact" class="contact-section">
+    <p class="section-label" data-i18n="contact_label">Contact</p>
+    <div class="contact-details">
+      <a href="mailto:rosekatche@gmail.com" class="contact-line">rosekatche@gmail.com</a>
+      <p class="contact-line" data-i18n="contact_phone_fr">France +33 7 88 49 21 87</p>
+      <p class="contact-line" data-i18n="contact_phone_us">US +1 310 922 9597</p>
+    </div>
+    <div class="socials">
+      <a href="https://www.instagram.com/rosa__bonheur/" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://www.imdb.com/name/nm1626077/" target="_blank" rel="noopener">IMDb</a>
+    </div>
+  </section>
+
+</div>
+
+<footer data-i18n="footer">© 2026 Rose Katché</footer>
+
+<script>
+  var translations = {
+    fr: {
+      role: "autrice - réalisatrice",
+      nav_about: "À propos",
+      nav_work: "Projets",
+      nav_contact: "Contact",
+      hero_eyebrow: "Autrice - réalisatrice",
+      about_label: "À propos",
+      about_text_1: "<strong>Rose Katché</strong> est une réalisatrice française basée entre Paris et Montréal. Son travail interroge les liens familiaux, la filiation, l'incommunicabilité, tout en affirmant le corps comme un langage autonome.",
+      about_text_2: "Elle est en ce moment en post-production de son premier long métrage documentaire, <em>Uninvited</em>, qui explore les liens de filiation entre un père et sa fille et la transmission des origines. Financé par le programme Talents en vue de Téléfilm Canada, le film a été développé au Talent Lab du RIDM à Montréal (2020) et au Hot Docs Accelerator de Toronto (2022). Elle développe également <em>Ma bien-aimée</em>, un nouveau court métrage de fiction sur les arnaques sentimentales.",
+      about_text_3: "En 2021, elle réalise et autoproduit son premier court métrage, <em>La mise à mort de mon père</em>, présenté dans plusieurs festivals, notamment en Amérique du Nord. Elle réalise ensuite des scènes de jeu de deuxième équipe pour la saison 2 de la série <em>The Walking Dead: Daryl Dixon</em>, puis un court-métrage de type proof of concept pour <strong>The Sphere</strong>.",
+      about_text_4: "Elle fait ses débuts dans le milieu du cinéma en tant que scripte, un métier qui lui offre une position d'observation privilégiée au cœur de la narration et de la mise en scène. Elle travaille aux côtés de nombreux réalisateurs sur des longs métrages dont <em>Valerian et la Cité des mille planètes</em>, des séries telles que <em>Lost in Space</em>, <em>A Million Little Things</em> et <em>Riverdale</em>, ainsi que des campagnes publicitaires pour <em class='muted-em'>Dior, Nintendo Switch</em> et <em class='muted-em'>Airbnb</em>.",
+      work_label: "Projets — En cours",
+      current_tag: "En post-production",
+      current_text: "Long métrage documentaire produit par Orchidée Films.",
+      working_title: "(titre de travail)",
+      stage2_label: "Projets — Réalisés",
+      project1_title: "La mise à mort de mon père",
+      project1_role: "Scénariste, réalisatrice · 12 minutes, 2021",
+      project1_festivals: "Sélection de festivals : Marché du Film Court de Clermont-Ferrand - Talent Tout Court Téléfilm Canada, The Pan African Film Festival, Seattle Black Film Festival, New York Shorts International Film Festival, Paris Lift-Off Film Festival, Syracuse International Film Festival, Afrikart Festival (Montpellier), Victoria Film Festival, San Diego Black Film Festival, Festival International de cinéma Vues d'Afrique (Montréal).",
+      vimeo_link: "Voir sur Vimeo",
+      protected_note: "Pour le mot de passe, écrivez à <a href='mailto:rosekatche@gmail.com' style='color:inherit;text-decoration:underline;'>rosekatche@gmail.com</a>",
+      project2_role: "Réalisation de scènes de jeu non créditées, deuxième équipe · Saison 2, épisodes 5 & 6 (2024)",
+      stage3_title: "Sur les plateaux",
+      cap_pilgrim: "Sur le tournage de The Walking Dead: Daryl Dixon",
+      cap_sphere: "Sur le tournage du proof of concept pour The Sphere",
+      cap_ddofm: "Sur le tournage de La mise à mort de mon père",
+      cap_abidjan: "Sur le tournage d'Uninvited à Abidjan",
+      contact_label: "Contact",
+      contact_phone_fr: "France +33 7 88 49 21 87",
+      contact_phone_us: "US +1 310 922 9597",
+      footer: "© 2026 Rose Katché"
+    },
+    en: {
+      role: "writer / director",
+      nav_about: "About",
+      nav_work: "Work",
+      nav_contact: "Contact",
+      hero_eyebrow: "Writer / director",
+      about_label: "About",
+      about_text_1: "<strong>Rose Katché</strong> is a French director based between Paris and Montreal. Her work explores family bonds, filiation and incommunicability, while affirming the body as an autonomous language.",
+      about_text_2: "She is currently in post-production on her first feature documentary, <em>Uninvited</em>, which explores the bond between a father and daughter and the transmission of origins. Funded by Telefilm Canada's Talent to Watch programme, the film was developed at RIDM's Talent Lab in Montreal (2020) and the Hot Docs Accelerator in Toronto (2022). She is also developing <em>Beloved</em>, a new fiction short about romance scams.",
+      about_text_3: "In 2021, she directed and self-produced her first short film, <em>The Deliberate Death of My Father</em>, screened at numerous festivals, notably across North America. She went on to direct second unit performance scenes for season 2 of <em>The Walking Dead: Daryl Dixon</em>, then a proof-of-concept short film for <strong>The Sphere</strong>.",
+      about_text_4: "She began her career in film as a script supervisor, a role that offers a privileged vantage point at the heart of narrative and staging. She has worked alongside numerous directors on feature films including <em>Valerian and the City of a Thousand Planets</em>, series such as <em>Lost in Space</em>, <em>A Million Little Things</em> and <em>Riverdale</em>, and advertising campaigns for <em class='muted-em'>Dior, Nintendo Switch</em> and <em class='muted-em'>Airbnb</em>.",
+      work_label: "Work — Current",
+      current_tag: "In post-production",
+      current_text: "Feature documentary produced by Orchidée Films.",
+      working_title: "(working title)",
+      stage2_label: "Work — Directed",
+      project1_title: "The Deliberate Death of My Father",
+      project1_role: "Writer, director · 12 minutes, 2021",
+      project1_festivals: "Festival selection: Marché du Film Court de Clermont-Ferrand - Talent Tout Court Telefilm Canada, The Pan African Film Festival, Seattle Black Film Festival, New York Shorts International Film Festival, Paris Lift-Off Film Festival, Syracuse International Film Festival, Afrikart Festival (Montpellier), Victoria Film Festival, San Diego Black Film Festival, Vues d'Afrique International Film Festival (Montreal).",
+      vimeo_link: "Watch on Vimeo",
+      protected_note: "For the password, email <a href='mailto:rosekatche@gmail.com' style='color:inherit;text-decoration:underline;'>rosekatche@gmail.com</a>",
+      project2_role: "Second unit scenes (uncredited) · Season 2, episodes 5 & 6 (2024)",
+      stage3_title: "On set",
+      cap_pilgrim: "On the set of The Walking Dead: Daryl Dixon",
+      cap_sphere: "On set for The Sphere proof of concept",
+      cap_ddofm: "On the set of The Deliberate Death of My Father",
+      cap_abidjan: "On the set of Uninvited in Abidjan",
+      contact_label: "Contact",
+      contact_phone_fr: "France +33 7 88 49 21 87",
+      contact_phone_us: "US +1 310 922 9597",
+      footer: "© 2026 Rose Katché"
+    }
+  };
+
+  var currentLang = 'fr';
+  function applyLang(lang) {
+    currentLang = lang;
+    var dict = translations[lang];
+    document.querySelectorAll('[data-i18n]').forEach(function(el) {
+      var key = el.getAttribute('data-i18n');
+      if (dict[key] !== undefined) { el.innerHTML = dict[key]; }
+    });
+    document.documentElement.lang = lang;
+    var btn = document.getElementById('langToggle');
+    if (btn) { btn.textContent = lang === 'fr' ? 'FR / EN' : 'EN / FR'; }
+  }
+  var toggleBtn = document.getElementById('langToggle');
+  if (toggleBtn) {
+    toggleBtn.addEventListener('click', function() {
+      applyLang(currentLang === 'fr' ? 'en' : 'fr');
+    });
+  }
+  applyLang('fr');
+</script>
+
+</body>
+</html>
